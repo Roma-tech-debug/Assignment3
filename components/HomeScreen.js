@@ -82,10 +82,31 @@ const HomeScreen = () => {
   };
   
   const styles = StyleSheet.create({
-    //styling
     
-    
-  });
+  container: { flex: 1, padding: 22, backgroundColor: '#fff' },
+
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'left',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: '#ccc'
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginLeft: 60,
+  },
+
+  subtitle: { fontSize: 15, textAlign: 'left', marginBottom: 140},
+  
+  fact: {  fontSize: 16, color: '#333' },
+  input: {
+    borderWidth: 1, borderColor: '#ccc', borderRadius: 3, marginBottom: 10,
+  
+  }
+     
+});
 export default HomeScreen;
 
 
