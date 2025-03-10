@@ -6,7 +6,86 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'; // Importing icons
 
 
-
+const HomeScreen = () => {
+    const navigation = useNavigation();
+    const [month, setMonth] = useState('');
+    const [day, setDay] = useState('');
+    const [fact, setFact] = useState('');
+    const [loading, setLoading] = useState(false);
+  
+    const fetchFact = async (selectedMonth, selectedDay) => {
+      if (!selectedMonth || !selectedDay) return;
+      setLoading(true);
+  
+      try {
+        const options = {
+          method: 'GET',
+          url: `https://numbersapi.p.rapidapi.com/${selectedMonth}/${selectedDay}/date`,
+          params: { json: true },
+          headers: {
+            'X-RapidAPI-Key': '1a6d8ef9bdmshd6967e4ee237f75p162235jsne53ca4b9e501', 
+            'X-RapidAPI-Host': 'numbersapi.p.rapidapi.com',
+          },
+        };
+  
+        const response = await axios.request(options);
+        setFact(response.data.text);
+      } catch (error) {
+        console.error(error);
+        setFact('Error fetching fact');
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    useEffect(() => {
+      if (month && day) {
+        fetchFact(month, day);
+      }
+    }, [month, day]);
+  
+    return (
+      <View style={styles.container}>
+        {/* Top Header with Back Button */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={20} color="black" />
+          </TouchableOpacity>
+          <Text style={styles.title}>Assignment-3</Text>
+        </View>
+  
+        <Text style={styles.subtitle}>textInComponent</Text>
+  
+        {loading ? (
+          <ActivityIndicator size="large" color="black" />
+        ) : (
+          <Text style={styles.fact}>{fact}</Text>
+        )}
+  
+  <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          value={month}
+          onChangeText={setMonth}
+        />    
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          value={day}
+          onChangeText={setDay}
+        />
+      </View>
+      </View>
+  
+    );
+  };
+  
+  const styles = StyleSheet.create({
+    //styling
+    
+    
+  });
 export default HomeScreen;
 
 
